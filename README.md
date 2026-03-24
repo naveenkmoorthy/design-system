@@ -2,7 +2,7 @@
 
 A modern, accessible design system built with React 19, Tailwind CSS v4, and Turborepo. Basis provides a token-driven component library with full TypeScript support and interactive documentation.
 
-[![CI](https://github.com/naveenkmoorthy/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/naveenkmoorthy/design-system/actions/workflows/ci.yml)
+[![CI](https://github.com/naveenkmoorthy/basis/actions/workflows/ci.yml/badge.svg)](https://github.com/naveenkmoorthy/basis/actions/workflows/ci.yml)
 [![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=white)](https://react.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.2.2-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Turborepo](https://img.shields.io/badge/Turborepo-2.8.20-ef4444?logo=turborepo&logoColor=white)](https://turbo.build)
@@ -58,8 +58,8 @@ npm install -g pnpm
 
 ```bash
 # Clone the repository
-git clone https://github.com/naveenkmoorthy/design-system.git
-cd design-system
+git clone https://github.com/naveenkmoorthy/basis.git
+cd basis
 
 # Install all dependencies
 pnpm install
