@@ -5,19 +5,19 @@
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build": "storybook build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "chromatic": "npx chromatic --project-token=chpt_50acbf747d4b729 --storybook-build-dir=storybook-static"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "@repo/tokens": "workspace:*"
+    "@repo/tokens": "workspace:*",
+    "@repo/ui": "workspace:*"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@repo/eslint-config": "workspace:*",
-    "storybook": "8.6.18",
+    "@repo/typescript-config": "workspace:*",
+    "@storybook/addon-a11y": "8.6.18",
     "@storybook/addon-essentials": "8.6.18",
     "@storybook/addon-interactions": "8.6.18",
-    "@storybook/addon-a11y": "8.6.18",
     "@storybook/blocks": "8.6.18",
     "@storybook/react": "8.6.18",
     "@storybook/react-vite": "8.6.18",
@@ -26,8 +26,10 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "chromatic": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "storybook": "8.6.18",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0",
     "vite": "^6.0.0"

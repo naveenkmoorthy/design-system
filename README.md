@@ -1,159 +1,286 @@
-# Turborepo starter
+# Basis
 
-This Turborepo starter is maintained by the Turborepo core team.
+A modern, accessible design system built with React 19, Tailwind CSS v4, and Turborepo. Basis provides a token-driven component library with full TypeScript support and interactive documentation.
 
-## Using this example
+[![CI](https://github.com/naveenkmoorthy/design-system/actions/workflows/ci.yml/badge.svg)](https://github.com/naveenkmoorthy/design-system/actions/workflows/ci.yml)
+[![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=white)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.2.2-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Turborepo](https://img.shields.io/badge/Turborepo-2.8.20-ef4444?logo=turborepo&logoColor=white)](https://turbo.build)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 
-Run the following command:
+**[View Storybook →](https://69c21a13c92f56296fd7f891-lxwrqcpxpc.chromatic.com/)** &nbsp;·&nbsp; **[GitHub →](https://github.com/naveenkmoorthy/design-system)**
 
-```sh
-npx create-turbo@latest
+---
+
+## Overview
+
+Basis is structured as a monorepo where design decisions flow in one direction — from tokens to components to documentation. Every visual property (color, spacing, typography, radius) is defined once as a CSS variable and consumed everywhere else.
+
+```
+Token layer (@repo/tokens)
+    ↓
+Component layer (@repo/ui)
+    ↓
+Documentation layer (apps/docs)
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Monorepo Structure
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+```
+basis/
+├── apps/
+│   └── docs/                    # Storybook 8 — interactive component docs
+├── packages/
+│   ├── tokens/                  # Design tokens as Tailwind v4 CSS variables
+│   ├── ui/                      # React 19 component library
+│   ├── typescript-config/       # Shared TypeScript configuration
+│   └── eslint-config/           # Shared ESLint rules
+├── .changeset/                  # Changesets versioning config
+├── .github/workflows/ci.yml     # CI pipeline
+└── turbo.json                   # Turborepo task pipeline
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20+
+- pnpm 9+
+
+```bash
+npm install -g pnpm
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+### Installation
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+```bash
+# Clone the repository
+git clone https://github.com/naveenkmoorthy/design-system.git
+cd design-system
 
-```sh
-turbo build --filter=docs
+# Install all dependencies
+pnpm install
 ```
 
-Without global `turbo`:
+### Development
 
-```sh
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+# Start Storybook at localhost:6006
+pnpm dev --filter docs
+
+# Build all packages
+pnpm build
+
+# Typecheck all packages
+pnpm turbo run typecheck
+
+# Lint all packages
+pnpm turbo run lint
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## Packages
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+### `@repo/tokens`
 
-```sh
-cd my-turborepo
-turbo dev
+The single source of truth for all visual decisions. Tokens are defined using Tailwind v4's `@theme` directive and compiled to CSS custom properties.
+
+```css
+/* packages/tokens/src/index.css */
+@theme {
+  --color-primary-600: #7c3aed;
+  --color-text:        var(--color-neutral-900);
+  --radius-md:         0.375rem;
+  --spacing-4:         1rem;
+}
 ```
 
-Without global `turbo`, use your package manager:
+Token categories:
 
-```sh
-cd my-turborepo
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+- **Color** — a full neutral palette + semantic primary, success, warning, and danger ramps
+- **Typography** — font families, sizes, weights, and line heights
+- **Spacing** — a consistent spacing scale from `1px` to `6rem`
+- **Border radius** — from `none` to `full`
+- **Shadows** — four elevation levels
+- **Transitions** — duration and easing constants
+
+Dark mode is handled via `@media (prefers-color-scheme: dark)` overriding the semantic aliases — the raw palette stays fixed, only the semantic layer changes.
+
+---
+
+### `@repo/ui`
+
+The React component library. Built with Vite, outputs ESM and CJS simultaneously with full TypeScript declaration maps.
+
+**Available components:**
+
+| Component | Description |
+|-----------|-------------|
+| `Button`  | Four variants (primary, secondary, ghost, danger), three sizes, loading state |
+| `Input`   | Label, hint, error states, left/right element slots, three sizes |
+| `Card`    | Compound component with `Card.Header`, `Card.Body`, `Card.Footer` sub-parts |
+
+**Installation in a new project:**
+
+```bash
+pnpm add @repo/ui @repo/tokens
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+**Usage:**
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+```tsx
+import { Button, Input, Card } from "@repo/ui";
+import "@repo/ui/styles";
 
-```sh
-turbo dev --filter=web
+export function LoginForm() {
+  return (
+    <Card>
+      <Card.Header>
+        <h2>Sign in</h2>
+      </Card.Header>
+      <Card.Body>
+        <Input
+          label="Email"
+          type="email"
+          placeholder="you@example.com"
+        />
+      </Card.Body>
+      <Card.Footer>
+        <Button variant="primary">Sign in</Button>
+        <Button variant="ghost">Cancel</Button>
+      </Card.Footer>
+    </Card>
+  );
+}
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
+### `apps/docs`
+
+Interactive documentation built with Storybook 8 and the `@storybook/react-vite` framework.
+
+Every component has:
+- **Stories** for each variant and state
+- **Auto-generated props table** from TypeScript types via `react-docgen-typescript`
+- **Controls panel** for live prop editing
+- **Accessibility checks** via `@storybook/addon-a11y`
+
+```bash
+pnpm dev --filter docs
+# Opens at http://localhost:6006
 ```
 
-### Remote Caching
+---
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+## Architecture Decisions
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+### Why Turborepo?
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+Turborepo provides intelligent task scheduling and caching across the monorepo. Tasks only re-run when their inputs change — on a cold run the full build takes a few seconds, on a warm run it completes in under 200ms.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
+```bash
+# Second run — nothing changed
+pnpm build
+# → Tasks: 5 successful | Cached: 5 cached | Time: 111ms >>> FULL TURBO
 ```
 
-Without global `turbo`, use your package manager:
+The build order is inferred from `package.json` dependencies:
 
-```sh
-cd my-turborepo
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```
+@repo/typescript-config
+@repo/eslint-config
+@repo/tokens
+    └── @repo/ui
+            └── docs
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Why Tailwind CSS v4?
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Tailwind v4 introduces a CSS-first configuration model. Instead of a `tailwind.config.js` file, the entire token system lives in a `@theme {}` block inside a `.css` file. This means:
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+- Tokens are plain CSS custom properties — no build step required for the token package
+- Any tool that can import CSS can consume the tokens, not just Tailwind
+- The `@repo/tokens` package is a zero-dependency CSS file
 
-```sh
-turbo link
+### Why two token layers?
+
+The token system has a raw palette layer and a semantic alias layer:
+
+```css
+/* Raw — never used directly in components */
+--color-neutral-900: #171717;
+
+/* Semantic — what components reference */
+--color-text: var(--color-neutral-900);
 ```
 
-Without global `turbo`:
+Theming is a semantic layer swap. Changing the primary color system-wide is one variable change, not a grep across every component.
 
-```sh
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+### Why compound components for Card?
+
+```tsx
+<Card>
+  <Card.Header>...</Card.Header>
+  <Card.Body>...</Card.Body>
+  <Card.Footer>...</Card.Footer>
+</Card>
 ```
 
-## Useful Links
+The compound pattern keeps the API discoverable via autocomplete, enforces semantic structure, and avoids a deeply nested props API (`headerContent`, `footerContent`, etc.) that becomes unwieldy as components grow.
 
-Learn more about the power of Turborepo:
+---
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+## Versioning
+
+Basis uses [Changesets](https://github.com/changesets/changesets) for versioning.
+
+```bash
+# After making a change, create a changeset
+pnpm changeset
+
+# Bump versions across affected packages
+pnpm version-packages
+```
+
+---
+
+## Contributing
+
+```bash
+# Create a feature branch
+git checkout -b feat/your-component
+
+# Make your changes, then create a changeset
+pnpm changeset
+
+# Verify everything builds and typechecks
+pnpm build
+pnpm turbo run typecheck
+```
+
+---
+
+## Tech Stack
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| [React](https://react.dev) | 19.2.4 | Component model |
+| [Tailwind CSS](https://tailwindcss.com) | 4.2.2 | Styling, token consumption |
+| [Vite](https://vitejs.dev) | 6.4.1 | Component library bundler |
+| [Turborepo](https://turbo.build) | 2.8.20 | Monorepo task orchestration |
+| [Storybook](https://storybook.js.org) | 8.6.18 | Component documentation |
+| [TypeScript](https://www.typescriptlang.org) | 5.7 | Type safety across all packages |
+| [Changesets](https://github.com/changesets/changesets) | 3.x | Package versioning |
+| [pnpm](https://pnpm.io) | 9.x | Package manager, workspace linking |
+
+---
+
+## License
+
+MIT
