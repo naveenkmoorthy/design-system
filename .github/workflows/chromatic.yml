@@ -27,6 +27,8 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          DATABASE_URL: "postgresql://localhost:5432/placeholder"
 
       - name: Build packages
         run: pnpm build --filter @repo/tokens --filter @repo/ui
