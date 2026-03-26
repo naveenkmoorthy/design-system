@@ -59,4 +59,4 @@ jobs:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       - name: Build Storybook
-        run: pnpm build --filter docs
+        run: pnpm build --filter @basis/docs
