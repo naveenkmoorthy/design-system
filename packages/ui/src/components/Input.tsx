@@ -28,7 +28,8 @@ export function Input({
   disabled,
   ...props
 }: InputProps) {
-  const inputId = id ?? React.useId();
+  const generatedId = React.useId();
+  const inputId = id ?? generatedId;
   const hintId = `${inputId}-hint`;
   const errorId = `${inputId}-error`;
   const hasError = Boolean(error);
