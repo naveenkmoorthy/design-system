@@ -9,7 +9,7 @@
     "check-types": "turbo run check-types",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=@repo/ui --filter=@repo/tokens && changeset publish"
+    "release": "turbo run build --filter=@basis/ui --filter=@basis/tokens && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",

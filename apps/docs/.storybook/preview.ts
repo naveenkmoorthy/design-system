@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import "@repo/ui/styles";
+import "@basis/ui/styles";
 import theme from "./theme";
 
 const preview: Preview = {

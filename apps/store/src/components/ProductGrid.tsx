@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@repo/ui";
+import { Button } from "@basis/ui";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types/product";
 

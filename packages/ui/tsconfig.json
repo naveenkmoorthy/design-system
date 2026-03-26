@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/react-library",
+  "extends": "@basis/typescript-config/react-library",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",

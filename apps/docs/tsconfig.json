@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/storybook",
+  "extends": "@basis/typescript-config/storybook",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {}

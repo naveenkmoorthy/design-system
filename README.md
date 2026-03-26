@@ -10,8 +10,8 @@ basis/
 │   ├── store/        # Next.js 15 product listing app
 │   └── api/          # Node.js + Express REST API
 ├── packages/
-│   ├── ui/           # @repo/ui — React component library
-│   └── tokens/       # @repo/tokens — design tokens
+│   ├── ui/           # @basis/ui — React component library
+│   └── tokens/       # @basis/tokens — design tokens
 ```
 
 ## Tech stack
@@ -22,7 +22,7 @@ basis/
 | Package manager | pnpm |
 | Frontend | Next.js 15, React 19 |
 | Styling | Tailwind CSS v4 |
-| Component library | `@repo/ui` (this repo) |
+| Component library | `@basis/ui` (this repo) |
 | Backend | Node.js, Express |
 | Documentation | Storybook 8, Chromatic |
 
@@ -54,13 +54,13 @@ This starts all apps and packages in watch mode:
 ```bash
 pnpm --filter @basis/store dev   # Next.js store
 pnpm --filter @basis/api dev     # Express API
-pnpm --filter @repo/ui dev       # Component library
+pnpm --filter @basis/ui dev       # Component library
 ```
 
 ## Apps
 
 ### Store (`apps/store`)
-A product listing app that consumes `@repo/ui` components. Features product grid, category filtering, detail pages, loading skeletons, and error boundaries.
+A product listing app that consumes `@basis/ui` components. Features product grid, category filtering, detail pages, loading skeletons, and error boundaries.
 
 ### API (`apps/api`)
 A REST API built with Express and TypeScript.
@@ -75,13 +75,13 @@ A REST API built with Express and TypeScript.
 
 ## Packages
 
-### `@repo/ui`
+### `@basis/ui`
 React component library built with Tailwind CSS v4. Components are documented in Storybook and published to Chromatic.
 
 Available components: `Button`, `Card`, `Input`
 
-### `@repo/tokens`
-Design tokens consumed by `@repo/ui`. Covers color, typography, spacing, and more.
+### `@basis/tokens`
+Design tokens consumed by `@basis/ui`. Covers color, typography, spacing, and more.
 
 ## Scripts
 

@@ -1,5 +1,5 @@
 {
-  "name": "docs",
+  "name": "@basis/docs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,12 +9,12 @@
     "chromatic": "npx chromatic --project-token=chpt_50acbf747d4b729 --storybook-build-dir=storybook-static"
   },
   "dependencies": {
-    "@repo/tokens": "workspace:*",
-    "@repo/ui": "workspace:*"
+    "@basis/tokens": "workspace:*",
+    "@basis/ui": "workspace:*"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@basis/eslint-config": "workspace:*",
+    "@basis/typescript-config": "workspace:*",
     "@storybook/addon-a11y": "8.6.18",
     "@storybook/addon-essentials": "8.6.18",
     "@storybook/addon-interactions": "8.6.18",

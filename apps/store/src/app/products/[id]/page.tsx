@@ -1,6 +1,6 @@
 import Container from "@/components/Container";
 import { getProduct, getProducts } from "@/lib/api";
-import { Button } from "@repo/ui";
+import { Button } from "@basis/ui";
 import Image from "next/image";
 import Link from "next/link";
 

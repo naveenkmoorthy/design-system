@@ -1,5 +1,5 @@
 import { Product } from "@/types/product";
-import { Card, Button } from "@repo/ui";
+import { Card, Button } from "@basis/ui";
 import Image from "next/image";
 import Link from "next/link";
 

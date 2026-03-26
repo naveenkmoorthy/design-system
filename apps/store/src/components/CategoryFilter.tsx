@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@repo/ui";
+import { Button } from "@basis/ui";
 
 interface CategoryFilterProps {
   categories: string[];

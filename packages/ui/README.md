@@ -1,4 +1,4 @@
-# @repo/ui
+# @basis/ui
 
 The Basis component library. Built with React 19, Tailwind CSS v4, and TypeScript. Documented in Storybook and deployed to Chromatic.
 
@@ -13,8 +13,8 @@ The Basis component library. Built with React 19, Tailwind CSS v4, and TypeScrip
 ## Usage
 
 ```tsx
-import { Button, Card } from "@repo/ui";
-import "@repo/ui/styles";
+import { Button, Card } from "@basis/ui";
+import "@basis/ui/styles";
 
 export default function Example() {
   return (
@@ -32,10 +32,10 @@ export default function Example() {
 
 ```bash
 # Watch mode — rebuilds on changes
-pnpm --filter @repo/ui dev
+pnpm --filter @basis/ui dev
 
 # Build
-pnpm --filter @repo/ui build
+pnpm --filter @basis/ui build
 ```
 
 ## Documentation
@@ -43,5 +43,5 @@ pnpm --filter @repo/ui build
 Components are documented in Storybook.
 
 ```bash
-pnpm --filter @repo/ui storybook
+pnpm --filter @basis/ui storybook
 ```

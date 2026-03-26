@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
-import "@repo/ui/styles";
+import "@basis/ui/styles";
 import "./globals.css";
 import Header from "@/components/Header";
 

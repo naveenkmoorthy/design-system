@@ -4,14 +4,14 @@ A product listing app built with the [Basis](../..) design system.
 
 ## Overview
 
-Demonstrates real-world usage of `@repo/ui` components inside a Next.js App Router application. Connects to a separate Express API for product data.
+Demonstrates real-world usage of `@basis/ui` components inside a Next.js App Router application. Connects to a separate Express API for product data.
 
 ## Stack
 
 - Next.js 15 (App Router)
 - React 19
 - Tailwind CSS v4
-- `@repo/ui` — Basis component library
+- `@basis/ui` — Basis component library
 
 ## Features
 
