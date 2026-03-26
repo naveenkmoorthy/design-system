@@ -23,10 +23,12 @@
     "prisma": "^7.5.0"
   },
   "devDependencies": {
+    "@basis/eslint-config": "workspace:*",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^20",
     "@types/pg": "^8.20.0",
+    "eslint": "^9.39.1",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.2"

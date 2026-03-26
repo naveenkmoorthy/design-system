@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import productRoutes from "./routes/products";
+import cartRouter from "./routes/cart";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -12,6 +13,7 @@ app.use(express.json()); // parses incoming JSON request bodies
 
 // Routes
 app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRouter);
 
 // Health check
 app.get("/health", (req, res) => {
