@@ -4,6 +4,7 @@ import "@basis/ui/styles";
 import "./globals.css";
 import Header from "@/components/Header";
 import { CartInitializer } from "./cartInitializer";
+import { SessionProvider } from "next-auth/react";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geist.className} bg-bg text-text`}>
-        <Header />
-        <CartInitializer />
-        {children}
+        <SessionProvider>
+          <Header />
+          <CartInitializer />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

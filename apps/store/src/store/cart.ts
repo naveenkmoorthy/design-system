@@ -24,6 +24,7 @@ export interface CartItem {
 export interface Cart {
   id: string;
   sessionId: string;
+  userId?: string;
   items: CartItem[];
   createdAt: string;
   updatedAt: string;
@@ -39,23 +40,24 @@ interface CartStore {
   updateQuantity: (productId: string, quantity: number) => Promise<void>;
   removeItem: (productId: string) => Promise<void>;
   clearCart: () => Promise<void>;
+  mergeCart: (userId: string) => Promise<void>;
 
   // Derived
   itemCount: () => number;
   total: () => number;
 }
 
-async function cartRequest(
+async function cartRequestWithSession(
   method: string,
+  sessionId: string,
   path: string,
   body?: object,
 ): Promise<Cart> {
-  const res = await fetch(`${API_URL}/api/cart/${path}`, {
+  const res = await fetch(`${API_URL}/api/cart/${sessionId}${path}`, {
     method,
     headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
   });
-
   if (!res.ok) throw new Error(`Cart API error: ${res.status}`);
   return res.json();
 }
@@ -69,7 +71,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
     set({ loading: true, error: null });
     try {
       const sessionId = getSessionId();
-      const cart = await cartRequest("GET", sessionId);
+      const cart = await cartRequestWithSession("GET", sessionId, "");
       set({ cart });
     } catch {
       set({ error: "Failed to load cart" });
@@ -81,8 +83,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
   addItem: async (productId, quantity = 1) => {
     set({ error: null });
     try {
-      const sessionId = getSessionId();
-      const cart = await cartRequest("POST", `${sessionId}/items`, {
+      const sessionId = get().cart?.sessionId ?? getSessionId();
+      const cart = await cartRequestWithSession("POST", sessionId, "/items", {
         productId,
         quantity,
       });
@@ -95,10 +97,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   updateQuantity: async (productId, quantity) => {
     set({ error: null });
     try {
-      const sessionId = getSessionId();
-      const cart = await cartRequest(
+      const sessionId = get().cart?.sessionId ?? getSessionId();
+      const cart = await cartRequestWithSession(
         "PATCH",
-        `${sessionId}/items/${productId}`,
+        sessionId,
+        `/items/${productId}`,
         { quantity },
       );
       set({ cart });
@@ -110,10 +113,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   removeItem: async (productId) => {
     set({ error: null });
     try {
-      const sessionId = getSessionId();
-      const cart = await cartRequest(
+      const sessionId = get().cart?.sessionId ?? getSessionId();
+      const cart = await cartRequestWithSession(
         "DELETE",
-        `${sessionId}/items/${productId}`,
+        sessionId,
+        `/items/${productId}`,
       );
       set({ cart });
     } catch {
@@ -124,11 +128,28 @@ export const useCartStore = create<CartStore>((set, get) => ({
   clearCart: async () => {
     set({ error: null });
     try {
-      const sessionId = getSessionId();
-      const cart = await cartRequest("DELETE", sessionId);
+      const sessionId = get().cart?.sessionId ?? getSessionId();
+      const cart = await cartRequestWithSession("DELETE", sessionId, "");
       set({ cart });
     } catch {
       set({ error: "Failed to clear cart" });
+    }
+  },
+
+  mergeCart: async (userId: string) => {
+    set({ error: null });
+    try {
+      const sessionId = getSessionId();
+      const res = await fetch(`${API_URL}/api/cart/merge`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, userId }),
+      });
+      if (!res.ok) throw new Error(`Merge error: ${res.status}`);
+      const cart = await res.json();
+      set({ cart });
+    } catch {
+      set({ error: "Failed to merge cart" });
     }
   },
 
