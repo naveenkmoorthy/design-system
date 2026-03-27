@@ -5,6 +5,8 @@ import productRoutes from "./routes/products";
 import cartRouter from "./routes/cart";
 import authRouter from "./routes/auth";
 import cartMergeRouter from "./routes/cartMerge";
+import checkoutRouter from "./routes/checkout";
+import orderRouter from "./routes/order";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -18,6 +20,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/cart", cartMergeRouter);
+app.use("/api/checkout", checkoutRouter);
+app.use("/api/orders", orderRouter);
 
 // Health check
 app.get("/health", (req, res) => {
