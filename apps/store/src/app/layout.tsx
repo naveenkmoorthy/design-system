@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "@basis/ui/styles";
 import "./globals.css";
 import Header from "@/components/Header";
+import { CartInitializer } from "./cartInitializer";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geist.className} bg-bg text-text`}>
         <Header />
+        <CartInitializer />
         {children}
       </body>
     </html>

@@ -1,6 +1,6 @@
+import AddToCartButton from "@/components/AddToCartButton";
 import Container from "@/components/Container";
 import { getProduct, getProducts } from "@/lib/api";
-import { Button } from "@basis/ui";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,20 +52,10 @@ export default async function ProductPage({ params }: Props) {
             </p>
 
             <div className="mt-8">
-              {product.inStock ? (
-                <Button size="lg" variant="primary" className="w-full">
-                  Add to cart
-                </Button>
-              ) : (
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  disabled
-                  className="w-full"
-                >
-                  Out of stock
-                </Button>
-              )}
+              <AddToCartButton
+                productId={product.id}
+                inStock={product.inStock}
+              />
             </div>
           </div>
         </div>
